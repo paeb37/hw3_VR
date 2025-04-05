@@ -8,6 +8,11 @@ TagManager:
   - Monster
   - Object
   - Controller
+  - Door
+  - Floor
+  - Chest
+  - Weapon1
+  - Weapon2
   layers:
   - Default
   - TransparentFX

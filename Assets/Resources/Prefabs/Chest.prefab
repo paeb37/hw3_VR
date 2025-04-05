@@ -47,6 +47,7 @@ GameObject:
   - component: {fileID: 2110625647709132779}
   - component: {fileID: 3486690553044270497}
   - component: {fileID: 4806168912214196815}
+  - component: {fileID: 8092120157796554072}
   m_Layer: 0
   m_Name: Visuals
   m_TagString: Object
@@ -186,8 +187,22 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.3600619, y: 0.5329205, z: 0.7380885}
-  m_Center: {x: 0.00000071525574, y: 0.25334162, z: -0.000000074505806}
+  m_Size: {x: 1.3600619, y: 0.8, z: 0.7380885}
+  m_Center: {x: 0.00000071525574, y: 0.4, z: -0.000000074505806}
+--- !u!114 &8092120157796554072
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8323550166266990827}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6c7037bdb85eae4893fddad28002afd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weapon1Prefab: {fileID: 925240062129150877, guid: 8b50909bcd921d04d9e31aba1f5d387e, type: 3}
+  weapon2Prefab: {fileID: 2314820537289405515, guid: 4daaf61941cf93345a85cb2a4a8971d8, type: 3}
 --- !u!1001 &2655737204134337072
 PrefabInstance:
   m_ObjectHideFlags: 0
