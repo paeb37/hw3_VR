@@ -11909,7 +11909,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aebf0b73bd153844abd632c02627c658, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jsonFileName: scene_data.json
+  jsonFileName: data0.json
   sceneRoot: {fileID: 1010175228}
 --- !u!4 &1654056211
 Transform:
@@ -12681,7 +12681,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 1.351e-42, y: -0.0000000049377675, z: 7.45e-43, w: 4.8e-44}
+  m_BoundingSphereOverride: {x: 1.02e-43, y: 2.4e-44, z: 6.897e-42, w: -6.0427756e-38}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
