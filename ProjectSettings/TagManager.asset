@@ -13,6 +13,8 @@ TagManager:
   - Chest
   - Weapon1
   - Weapon2
+  - Boss
+  - Key
   layers:
   - Default
   - TransparentFX
