@@ -22,6 +22,9 @@ public class SceneLoader : MonoBehaviour
    [Header("Main Transform for Scene Hierarchy")]
    public Transform mainTransform; // assign in inspector
 
+   [Header("XR Origin Reference")]
+   [SerializeField] private Transform xrOrigin; // assign in inspector
+
 
 
 
@@ -82,6 +85,11 @@ public class SceneLoader : MonoBehaviour
        int loadedCount = 0;
        Dictionary<string, GameObject> roomParents = new Dictionary<string, GameObject>();
        Dictionary<string, GameObject> floorParents = new Dictionary<string, GameObject>();
+       
+       // Player instance and position
+       GameObject playerInstance = null;
+       Vector3 playerPosition = Vector3.zero;
+       Vector3 playerRotation = Vector3.zero;
 
        // First pass: Create floor parents as children of MainTransform
        foreach (var objData in sceneData.objects)
@@ -254,6 +262,15 @@ public class SceneLoader : MonoBehaviour
            instance.AddComponent<SceneObjectTag>().originalName = cleanName;
            Debug.Log($"✅ Loaded prefab: {cleanName} in {roomLabel} at local position {objData.position} on {floorKey ?? "MainTransform"}");
            loadedCount++;
+
+           // Store player instance and position if this is the player
+           if (cleanName.Contains("Player") && roomLabel == "(Room1)")
+           {
+               playerInstance = instance;
+               playerPosition = objData.position;
+               playerRotation = objData.rotation;
+               Debug.Log($"🎮 Player instance found in Room1 at position: {playerPosition}");
+           }
        }
 
        // Clean-up pass: remove any AttachTransform with no children
@@ -266,11 +283,25 @@ public class SceneLoader : MonoBehaviour
            }
        }
 
+       // Position the XR Origin at the player's position if player was found
+       if (playerInstance != null && xrOrigin != null)
+       {
+           // Convert player's local position to world position
+           Vector3 playerWorldPosition = playerInstance.transform.position;
+           Quaternion playerWorldRotation = playerInstance.transform.rotation;
+           
+           // Set XR Origin's world position and rotation
+           xrOrigin.position = playerWorldPosition;
+           xrOrigin.rotation = playerWorldRotation;
+           Debug.Log($"🎮 XR Origin positioned at player world location: {playerWorldPosition}");
+       }
+       else if (xrOrigin == null)
+       {
+           Debug.LogWarning("⚠️ XR Origin not assigned in inspector");
+       }
+
        Debug.Log($"✅ Scene load complete. Total objects loaded: {loadedCount}");
    }
-
-
-
 
    void Start()
    {
