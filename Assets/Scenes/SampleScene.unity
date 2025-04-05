@@ -7773,7 +7773,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1010175228}
   m_Layer: 0
-  m_Name: LoadSceneRoot
+  m_Name: MainTransform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11891,7 +11891,7 @@ GameObject:
   - component: {fileID: 1654056211}
   - component: {fileID: 1654056210}
   m_Layer: 0
-  m_Name: SceneLoaderObject
+  m_Name: Scene Loader
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11909,8 +11909,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aebf0b73bd153844abd632c02627c658, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jsonFileName: data0.json
-  sceneRoot: {fileID: 1010175228}
+  jsonFileName: data1.json
+  mainTransform: {fileID: 1010175228}
 --- !u!4 &1654056211
 Transform:
   m_ObjectHideFlags: 0
