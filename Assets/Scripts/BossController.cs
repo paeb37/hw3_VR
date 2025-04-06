@@ -36,6 +36,47 @@ public class BossController : MonoBehaviour
             {
                 Debug.Log("[Trigger Enter] Required hits reached, destroying boss!");
                 LogState("Before Destruction");
+                
+                // Show victory text before destroying the boss
+                if (UIManager.Instance != null)
+                {
+                    UIManager.Instance.ShowVictoryMessage();
+                }
+                else
+                {
+                    Debug.LogWarning("UIManager instance not found!");
+                }
+
+                // Play victory sound
+                if (AudioManager.Instance != null)
+                {
+                    AudioManager.Instance.PlayBossVictorySound();
+                }
+                else
+                {
+                    Debug.LogWarning("AudioManager instance not found!");
+                }
+                
+                // Find and destroy all monsters in Floor3
+                GameObject floor3 = GameObject.Find("Floor3");
+                if (floor3 != null)
+                {
+                    // Iterate through all children of Floor3
+                    foreach (Transform child in floor3.transform)
+                    {
+                        // Check if the child or any of its children have the Monster tag
+                        if (child.CompareTag("Monster") || child.GetComponentInChildren<Transform>().CompareTag("Monster"))
+                        {
+                            Debug.Log($"Destroying monster: {child.name}");
+                            Destroy(child.gameObject);
+                        }
+                    }
+                }
+                else
+                {
+                    Debug.LogWarning("Floor3 not found!");
+                }
+                
                 Destroy(transform.parent.gameObject);
             }
             else

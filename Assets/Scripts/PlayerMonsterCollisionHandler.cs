@@ -3,6 +3,7 @@ using UnityEngine;
 public class PlayerMonsterCollisionHandler : MonoBehaviour
 {
     private Transform xrOrigin; // Will be found at runtime
+    [SerializeField] private AudioSource audioSource; // Reference to the AudioSource component
 
     private void Start()
     {
@@ -73,6 +74,32 @@ public class PlayerMonsterCollisionHandler : MonoBehaviour
     private void TeleportToFloor(string floorName)
     {
         Debug.Log($"🔄 Attempting to teleport to {floorName}");
+
+        // Play death sound if available
+        if (audioSource != null && audioSource.clip != null)
+        {
+            audioSource.Play();
+            Debug.Log("💀 Playing death sound");
+        }
+        else if (audioSource == null)
+        {
+            Debug.LogWarning("⚠️ AudioSource component not assigned!");
+        }
+        else if (audioSource.clip == null)
+        {
+            Debug.LogWarning("⚠️ No audio clip assigned to AudioSource!");
+        }
+
+        // Show player died text
+        if (UIManager.Instance != null)
+        {
+            UIManager.Instance.ShowPlayerDiedText();
+            Debug.Log("💀 Showing player died text");
+        }
+        else
+        {
+            Debug.LogWarning("⚠️ UIManager instance not found!");
+        }
 
         // Find the floor GameObject
         GameObject floor = GameObject.Find(floorName);

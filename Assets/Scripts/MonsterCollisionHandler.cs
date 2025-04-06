@@ -1,4 +1,5 @@
 using UnityEngine;
+using TMPro; // Add TextMeshPro import
 
 public class MonsterCollisionHandler : MonoBehaviour
 {
@@ -12,6 +13,22 @@ public class MonsterCollisionHandler : MonoBehaviour
         if (other.CompareTag("Controller") || other.CompareTag("Weapon1") || other.CompareTag("Weapon2"))
         {
             Debug.Log("Trigger collision detected with Controller, Weapon1, or Weapon2. Destroying monster.");
+            
+            // Show kill text using UIManager
+            if (UIManager.Instance != null)
+            {
+                UIManager.Instance.ShowKillText();
+            }
+            
+            // Play death sound using AudioManager
+            if (AudioManager.Instance != null)
+            {
+                AudioManager.Instance.PlayMonsterDeathSound();
+            }
+            else
+            {
+                Debug.LogWarning("⚠️ AudioManager instance not found!");
+            }
             
             // Store monster's position and rotation before destroying
             Vector3 monsterPosition = transform.position;
