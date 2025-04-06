@@ -93,6 +93,7 @@ public class SceneLoader : MonoBehaviour
        GameObject playerInstance = null;
        Vector3 playerPosition = Vector3.zero;
        Vector3 playerRotation = Vector3.zero;
+       List<GameObject> allPlayerInstances = new List<GameObject>();
 
        // First pass: Create floor parents as children of MainTransform
        foreach (var objData in sceneData.objects)
@@ -267,12 +268,16 @@ public class SceneLoader : MonoBehaviour
            loadedCount++;
 
            // Store player instance and position if this is the player
-           if (cleanName.Contains("Player") && roomLabel == "(Room1)")
+           if (cleanName.Contains("Player"))
            {
-               playerInstance = instance;
-               playerPosition = objData.position;
-               playerRotation = objData.rotation;
-               Debug.Log($"🎮 Player instance found in Room1 at position: {playerPosition}");
+               allPlayerInstances.Add(instance);
+               if (roomLabel == "(Room1)")
+               {
+                   playerInstance = instance;
+                   playerPosition = objData.position;
+                   playerRotation = objData.rotation;
+                   Debug.Log($"🎮 Player instance found in Room1 at position: {playerPosition}");
+               }
            }
        }
 
@@ -297,6 +302,12 @@ public class SceneLoader : MonoBehaviour
            xrOrigin.position = playerWorldPosition;
            xrOrigin.rotation = playerWorldRotation;
            Debug.Log($"🎮 XR Origin positioned at player world location: {playerWorldPosition}");
+           
+           // Disable all player instances since we only needed Room1's position/rotation
+           foreach (var player in allPlayerInstances)
+           {
+               player.SetActive(false);
+           }
        }
        else if (xrOrigin == null)
        {

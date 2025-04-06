@@ -138,9 +138,10 @@ GameObject:
   - component: {fileID: 1702252308191227670}
   - component: {fileID: 7012071063249518674}
   - component: {fileID: 5942143340867581240}
+  - component: {fileID: 8215358566650480972}
   m_Layer: 0
   m_Name: Visuals
-  m_TagString: Untagged
+  m_TagString: Monster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -292,6 +293,20 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.9791188, y: 1.249877, z: 1.1402799}
   m_Center: {x: 0.000000059604645, y: -0.040279627, z: 0.47081918}
+--- !u!114 &8215358566650480972
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4580616558956136657}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a9ef7b4212c85849bc8a042f8329dfb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  keyPrefab: {fileID: 925240062129150877, guid: 69479fd3afebd1a41a0784bf9f4a5933, type: 3}
+  keyHeightOffset: 0.2
 --- !u!1 &4773429500033850485
 GameObject:
   m_ObjectHideFlags: 0

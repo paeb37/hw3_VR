@@ -19,23 +19,33 @@ public class PlayerMonsterCollisionHandler : MonoBehaviour
         }
     }
 
+    // this method is the one that handles the collision with the monster
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
         Debug.Log($"🔍 Collision detected with: {hit.gameObject.name}, Tag: {hit.gameObject.tag}");
+        
+        // Add detailed debug information about the hit object and its hierarchy
+        // Debug.Log($"📋 Hit object details:");
+        // Debug.Log($"- Name: {hit.gameObject.name}");
+        // Debug.Log($"- Tag: {hit.gameObject.tag}");
+        // Debug.Log($"- Has Collider: {hit.gameObject.GetComponent<Collider>() != null}");
+        // Debug.Log($"- Parent: {hit.transform.parent?.name ?? "No parent"}");
+        // Debug.Log($"- Parent Tag: {hit.transform.parent?.tag ?? "No parent tag"}");
+        // Debug.Log($"- Parent Has Collider: {hit.transform.parent?.GetComponent<Collider>() != null}");
 
         // Check if we hit a Boss - this takes priority
-        if (hit.gameObject.CompareTag("Boss") || hit.transform.parent.gameObject.CompareTag("Boss"))
+        if (hit.gameObject.CompareTag("Boss")) // visuals
         {
             Debug.Log("👑 Boss collision detected - Sending player to Floor3");
             TeleportToFloor("Floor3");
         }
         // If not a boss, check if it's a regular monster
-        else if (hit.gameObject.CompareTag("Monster")  || hit.transform.parent.gameObject.CompareTag("Monster"))
+        else if (hit.gameObject.CompareTag("Monster")) // visuals
         {
             Debug.Log("💥 Monster collision detected");
             // Get the monster GameObject (either the hit object itself or its parent)
-            Transform monsterTransform = hit.gameObject.CompareTag("Monster") ? hit.transform : hit.transform.parent;
-            HandleMonsterCollision(monsterTransform);
+            // Transform monsterTransform = hit.gameObject.CompareTag("Monster") ? hit.transform : hit.transform.parent;
+            HandleMonsterCollision(hit.transform.parent); // should be the parent transform
         }
     }
 
@@ -70,7 +80,7 @@ public class PlayerMonsterCollisionHandler : MonoBehaviour
         {
             // Find the player spawn point within this floor
             GameObject spawnPoint = null;
-            foreach (Transform child in floor.GetComponentsInChildren<Transform>())
+            foreach (Transform child in floor.GetComponentsInChildren<Transform>(true))
             {
                 if (child.CompareTag("Player"))
                 {

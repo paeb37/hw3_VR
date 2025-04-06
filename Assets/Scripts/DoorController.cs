@@ -60,7 +60,9 @@ public class DoorController : MonoBehaviour
                 
                 // Find the player within Floor2
                 GameObject player = null;
-                foreach (Transform child in floor2.GetComponentsInChildren<Transform>())
+
+                // set true to include inactive children
+                foreach (Transform child in floor2.GetComponentsInChildren<Transform>(true))
                 {
                     if (child.CompareTag("Player"))
                     {
@@ -118,7 +120,9 @@ public class DoorController : MonoBehaviour
                 
                 // Find the player within Floor3
                 GameObject player = null;
-                foreach (Transform child in floor3.GetComponentsInChildren<Transform>())
+                
+                // set true to include inactive children
+                foreach (Transform child in floor3.GetComponentsInChildren<Transform>(true))
                 {
                     if (child.CompareTag("Player"))
                     {
