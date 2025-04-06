@@ -25,6 +25,9 @@ public class SceneLoader : MonoBehaviour
    [Header("XR Origin Reference")]
    [SerializeField] private Transform xrOrigin; // assign in inspector
 
+   [Header("Teleport Area Manager")]
+   [SerializeField] private TeleportAreaManager teleportAreaManager; // assign in inspector
+
 
 
 
@@ -301,12 +304,25 @@ public class SceneLoader : MonoBehaviour
        }
 
        Debug.Log($"✅ Scene load complete. Total objects loaded: {loadedCount}");
+
+       // Setup teleport areas after scene is loaded
+       if (teleportAreaManager != null)
+       {
+           teleportAreaManager.mainTransform = mainTransform;
+           teleportAreaManager.SetupFloorAreas();
+           Debug.Log("✅ Teleport areas setup complete");
+       }
+       else
+       {
+           Debug.LogWarning("⚠️ TeleportAreaManager not assigned in inspector");
+       }
    }
 
    void Start()
    {
        Debug.Log("🟡 SceneLoader Start() called");
        LoadScene();
+       teleportAreaManager.SetupFloorAreas();
    }
 }
 

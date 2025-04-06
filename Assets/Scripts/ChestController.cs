@@ -3,7 +3,7 @@ using UnityEngine;
 public class ChestController : MonoBehaviour
 {
     [SerializeField] private GameObject weapon1Prefab;
-    // [SerializeField] private GameObject weapon2Prefab;
+    [SerializeField] private GameObject weapon2Prefab;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -26,10 +26,8 @@ public class ChestController : MonoBehaviour
                 return;
             }
             
-            // Only use Weapon1 for now
-            string chosenTag = "Weapon1";
             // Randomly choose between Weapon1 and Weapon2
-            // string chosenTag = (Random.value < 0.5f) ? "Weapon1" : "Weapon2";
+            string chosenTag = (Random.value < 0.5f) ? "Weapon1" : "Weapon2";
             Debug.Log($"Chosen weapon tag: {chosenTag}");
             
             GameObject weaponToSpawn = null;
@@ -40,11 +38,11 @@ public class ChestController : MonoBehaviour
                 weaponToSpawn = weapon1Prefab;
                 Debug.Log("Weapon1 prefab found and selected");
             }
-            /* else if (chosenTag == "Weapon2" && weapon2Prefab != null)
+            else if (chosenTag == "Weapon2" && weapon2Prefab != null)
             {
                 weaponToSpawn = weapon2Prefab;
                 Debug.Log("Weapon2 prefab found and selected");
-            } */
+            }
             
             // Spawn the chosen weapon
             if (weaponToSpawn != null)
