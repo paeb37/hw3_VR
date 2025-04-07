@@ -254,6 +254,8 @@ GameObject:
   - component: {fileID: 7069956747794634574}
   - component: {fileID: 3931444917467888296}
   - component: {fileID: 7449255103848284881}
+  - component: {fileID: 9016479872227845581}
+  - component: {fileID: 35047152493070172}
   m_Layer: 0
   m_Name: Floor
   m_TagString: Floor
@@ -380,3 +382,50 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.4873374, y: 0.010798007, z: 0.4881075}
   m_Center: {x: -0.0011550784, y: 0.0040130913, z: 0.0015401244}
+--- !u!114 &9016479872227845581
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5807615952357107301}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AgentTypeID: 0
+  m_CollectObjects: 2
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: 2, z: 0}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_UseGeometry: 0
+  m_DefaultArea: 0
+  m_GenerateLinks: 0
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 0
+  m_TileSize: 256
+  m_OverrideVoxelSize: 0
+  m_VoxelSize: 0.16666667
+  m_MinRegionArea: 2
+  m_NavMeshData: {fileID: 0}
+  m_BuildHeightMesh: 0
+--- !u!114 &35047152493070172
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5807615952357107301}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14ee9269966fb99428aa7bd53e7e6949, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  showDebugBounds: 1
+  debugBoundsColor: {r: 0, g: 1, b: 0, a: 0.3}
+  sizeMultiplier: 1
+  accountForParentScale: 1

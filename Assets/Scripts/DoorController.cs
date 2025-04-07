@@ -79,6 +79,10 @@ public class DoorController : MonoBehaviour
                     xrOrigin.rotation = player.transform.rotation;
                     Debug.Log($"🎮 XR Origin teleported to Floor2 player position: {player.transform.position}");
 
+                    // Update FloorManager to track that player is now on Floor 2
+                    FloorManager.SetCurrentFloor(2);
+                    Debug.Log("✅ FloorManager updated: Player is now on Floor 2");
+
                     // Optionally destroy the key
                     Destroy(other.gameObject);
                     Debug.Log("🗑️ Key destroyed");
@@ -138,6 +142,10 @@ public class DoorController : MonoBehaviour
                     xrOrigin.position = player.transform.position;
                     xrOrigin.rotation = player.transform.rotation;
                     Debug.Log($"🎮 XR Origin teleported to Floor3 player position: {player.transform.position}");
+                    
+                    // Update FloorManager to track that player is now on Floor 3
+                    FloorManager.SetCurrentFloor(3);
+                    Debug.Log("✅ FloorManager updated: Player is now on Floor 3");
                 }
                 else
                 {
