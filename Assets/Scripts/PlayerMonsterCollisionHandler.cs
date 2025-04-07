@@ -25,15 +25,6 @@ public class PlayerMonsterCollisionHandler : MonoBehaviour
     {
         Debug.Log($"🔍 Collision detected with: {hit.gameObject.name}, Tag: {hit.gameObject.tag}");
         
-        // Add detailed debug information about the hit object and its hierarchy
-        // Debug.Log($"📋 Hit object details:");
-        // Debug.Log($"- Name: {hit.gameObject.name}");
-        // Debug.Log($"- Tag: {hit.gameObject.tag}");
-        // Debug.Log($"- Has Collider: {hit.gameObject.GetComponent<Collider>() != null}");
-        // Debug.Log($"- Parent: {hit.transform.parent?.name ?? "No parent"}");
-        // Debug.Log($"- Parent Tag: {hit.transform.parent?.tag ?? "No parent tag"}");
-        // Debug.Log($"- Parent Has Collider: {hit.transform.parent?.GetComponent<Collider>() != null}");
-
         // Check if we hit a Boss - this takes priority
         if (hit.gameObject.CompareTag("Boss")) // visuals
         {
