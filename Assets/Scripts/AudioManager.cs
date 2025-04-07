@@ -6,6 +6,7 @@ public class AudioManager : MonoBehaviour
 
     [Header("Monster Sounds")]
     [SerializeField] private AudioSource monsterDeathAudioSource;
+    // [SerializeField] private AudioSource monsterMovementAudioSource;
 
     [Header("Boss Sounds")]
     [SerializeField] private AudioSource bossVictoryAudioSource;
@@ -59,4 +60,20 @@ public class AudioManager : MonoBehaviour
             Debug.LogWarning("⚠️ Boss victory AudioSource or its clip is not assigned in AudioManager!");
         }
     }
+
+    // public void PlayMonsterMovementSound()
+    // {
+    //     if (monsterMovementAudioSource != null && monsterMovementAudioSource.clip != null)
+    //     {
+    //         monsterMovementAudioSource.Play();
+    //     }
+    // }
+
+    // public void StopMonsterMovementSound()
+    // {
+    //     if (monsterMovementAudioSource != null)
+    //     {
+    //         monsterMovementAudioSource.Stop();
+    //     }
+    // }
 } 

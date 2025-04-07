@@ -15,6 +15,8 @@ public class MonsterMovement : MonoBehaviour
     private bool useDirectMovement = false;
     private float moveSpeed = 0.25f;
     private float rotationSpeed = 2f;
+    private bool isPlayingMovementSound = false;
+    [SerializeField] private AudioSource audioSource;
 
     // Start is called before the first frame update
     void Start()
@@ -143,7 +145,41 @@ public class MonsterMovement : MonoBehaviour
                     
                     // Move towards player
                     transform.position += direction * moveSpeed * Time.deltaTime;
+                    
+                    // Start movement sound if not already playing
+                    if (!isPlayingMovementSound && audioSource != null)
+                    {
+                        audioSource.Play();
+                        isPlayingMovementSound = true;
+                    }
                 }
+                else
+                {
+                    // Stop movement sound if playing
+                    if (isPlayingMovementSound && audioSource != null)
+                    {
+                        audioSource.Stop();
+                        isPlayingMovementSound = false;
+                    }
+                }
+            }
+            else
+            {
+                // Stop movement sound if playing
+                if (isPlayingMovementSound && audioSource != null)
+                {
+                    audioSource.Stop();
+                    isPlayingMovementSound = false;
+                }
+            }
+        }
+        else
+        {
+            // Stop movement sound if playing
+            if (isPlayingMovementSound && audioSource != null)
+            {
+                audioSource.Stop();
+                isPlayingMovementSound = false;
             }
         }
     }
