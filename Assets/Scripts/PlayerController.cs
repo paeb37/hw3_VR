@@ -41,6 +41,24 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    // This method is called when a trigger collider enters this object's collider
+    // This handles cases where monsters use trigger colliders instead of regular colliders
+    private void OnTriggerEnter(Collider other)
+    {
+        // Check if we hit a Boss - this takes priority over regular monsters
+        if (other.gameObject.CompareTag("Boss"))
+        {
+            // Bosses always send the player to Floor3 (the boss floor)
+            TeleportToFloor("Floor3");
+        }
+        // If not a boss, check if it's a regular monster
+        else if (other.gameObject.CompareTag("Monster"))
+        {
+            // Get the monster GameObject (either the hit object itself or its parent)
+            HandleMonsterCollision(other.transform.parent); // should be the parent transform
+        }
+    }
+
     // Determines which floor the player should respawn on based on the monster's location
     // This ensures the player respawns on the same floor where they encountered the monster
     private void HandleMonsterCollision(Transform monsterTransform)
