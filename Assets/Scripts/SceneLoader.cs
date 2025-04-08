@@ -92,7 +92,7 @@ public class SceneLoader : MonoBehaviour
        Vector3 playerRotation = Vector3.zero;
        List<GameObject> allPlayerInstances = new List<GameObject>();
 
-       // First pass: Create floor parents as children of MainTransform
+       // First try: Create floor parents as children of MainTransform
        foreach (var objData in sceneData.objects)
        {
            string objName = objData.name.Trim();

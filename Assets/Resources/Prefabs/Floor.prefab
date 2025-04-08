@@ -425,7 +425,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14ee9269966fb99428aa7bd53e7e6949, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  showDebugBounds: 1
-  debugBoundsColor: {r: 0, g: 1, b: 0, a: 0.3}
   sizeMultiplier: 1
   accountForParentScale: 1

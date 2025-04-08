@@ -717,7 +717,7 @@ GameObject:
   - component: {fileID: 2349625413442902245}
   - component: {fileID: 8859312434329063728}
   - component: {fileID: 7841350819050232489}
-  - component: {fileID: 270579424417957122}
+  - component: {fileID: 4917634772240118733}
   m_Layer: 0
   m_Name: Visuals
   m_TagString: Monster
@@ -892,7 +892,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.519561, y: 1.7, z: 1.561897}
   m_Center: {x: -0.44687504, y: 0.3599043, z: 0}
---- !u!114 &270579424417957122
+--- !u!114 &4917634772240118733
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

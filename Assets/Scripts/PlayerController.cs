@@ -1,46 +1,48 @@
 using UnityEngine;
 
-public class PlayerMonsterCollisionHandler : MonoBehaviour
+// PlayerController handles player interactions with monsters and bosses in the VR environment
+// It manages collision detection, death sounds, and respawn mechanics
+
+public class PlayerController : MonoBehaviour
 {
+    // Reference to the XR Origin which represents the player's position in VR space
     private Transform xrOrigin; // Will be found at runtime
+    
+    // Audio source for playing death sounds when player collides with monsters
     [SerializeField] private AudioSource audioSource; // Reference to the AudioSource component
 
+    // Initialize component references and find the XR Origin in the scene
     private void Start()
     {
-        // Find the XR Origin (XR Rig) in the scene
+        // Find the XR Origin (XR Rig) in the scene - this is the root of the VR player
         GameObject xrOriginObj = GameObject.Find("XR Origin (XR Rig)");
         if (xrOriginObj != null)
         {
             xrOrigin = xrOriginObj.transform;
-            Debug.Log("✅ Found XR Origin (XR Rig) in scene");
-        }
-        else
-        {
-            Debug.LogWarning("⚠️ Could not find XR Origin (XR Rig) in scene");
         }
     }
 
-    // this method is the one that handles the collision with the monster
+    // This method is automatically called by Unity when the player's collider hits another collider
+    // It determines what type of object was hit and handles the appropriate response
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
-        Debug.Log($"🔍 Collision detected with: {hit.gameObject.name}, Tag: {hit.gameObject.tag}");
-        
-        // Check if we hit a Boss - this takes priority
+        // Check if we hit a Boss - this takes priority over regular monsters
         if (hit.gameObject.CompareTag("Boss")) // visuals
         {
-            Debug.Log("👑 Boss collision detected - Sending player to Floor3");
+            // Bosses always send the player to Floor3 (the boss floor)
             TeleportToFloor("Floor3");
         }
         // If not a boss, check if it's a regular monster
         else if (hit.gameObject.CompareTag("Monster")) // visuals
         {
-            Debug.Log("💥 Monster collision detected");
             // Get the monster GameObject (either the hit object itself or its parent)
             // Transform monsterTransform = hit.gameObject.CompareTag("Monster") ? hit.transform : hit.transform.parent;
             HandleMonsterCollision(hit.transform.parent); // should be the parent transform
         }
     }
 
+    // Determines which floor the player should respawn on based on the monster's location
+    // This ensures the player respawns on the same floor where they encountered the monster
     private void HandleMonsterCollision(Transform monsterTransform)
     {
         // Get the monster's parent to determine which floor we're on
@@ -48,84 +50,53 @@ public class PlayerMonsterCollisionHandler : MonoBehaviour
         
         if (monsterParent != null)
         {
-            Debug.Log($"🏢 Monster's parent: {monsterParent.name}");
-
             // Check which floor we're on and respawn there
+            // This creates a consistent experience where players stay on their current floor
             if (monsterParent.name.Contains("Floor1")) TeleportToFloor("Floor1");
             else if (monsterParent.name.Contains("Floor2")) TeleportToFloor("Floor2");
             else if (monsterParent.name.Contains("Floor3")) TeleportToFloor("Floor3");
-            else Debug.LogWarning("⚠️ Monster's parent does not contain a valid floor name");
-        }
-        else
-        {
-            Debug.LogWarning("⚠️ Monster has no parent transform");
         }
     }
 
+    // Handles the actual teleportation process, including playing death sounds and updating UI
+    // This is the central method for player respawning throughout the game
     private void TeleportToFloor(string floorName)
     {
-        Debug.Log($"🔄 Attempting to teleport to {floorName}");
-
-        // Play death sound if available
+        // Play death sound if available - provides audio feedback for player death
         if (audioSource != null && audioSource.clip != null)
         {
             audioSource.Play();
-            Debug.Log("💀 Playing death sound");
-        }
-        else if (audioSource == null)
-        {
-            Debug.LogWarning("⚠️ AudioSource component not assigned!");
-        }
-        else if (audioSource.clip == null)
-        {
-            Debug.LogWarning("⚠️ No audio clip assigned to AudioSource!");
         }
 
-        // Show player died text
+        // Show player died text - provides visual feedback for player death
         if (UIManager.Instance != null)
         {
             UIManager.Instance.ShowPlayerDiedText();
-            Debug.Log("💀 Showing player died text");
-        }
-        else
-        {
-            Debug.LogWarning("⚠️ UIManager instance not found!");
         }
 
-        // Find the floor GameObject
+        // Find the floor GameObject in the scene hierarchy
         GameObject floor = GameObject.Find(floorName);
         if (floor != null)
         {
             // Find the player spawn point within this floor
+            // Spawn points are tagged with "Player" for easy identification
             GameObject spawnPoint = null;
             foreach (Transform child in floor.GetComponentsInChildren<Transform>(true))
             {
                 if (child.CompareTag("Player"))
                 {
                     spawnPoint = child.gameObject;
-                    Debug.Log($"✅ Found spawn point in {floorName}: {spawnPoint.name}");
                     break;
                 }
             }
 
+            // If we found both a spawn point and the XR Origin, teleport the player
             if (spawnPoint != null && xrOrigin != null)
             {
-                // Teleport XR Origin to spawn point
+                // Teleport XR Origin to spawn point - this moves the entire VR player
                 xrOrigin.position = spawnPoint.transform.position;
                 xrOrigin.rotation = spawnPoint.transform.rotation;
-                Debug.Log($"🎮 XR Origin respawned at {floorName} spawn point: {spawnPoint.transform.position}");
             }
-            else
-            {
-                if (spawnPoint == null)
-                    Debug.LogWarning($"⚠️ No spawn point (Player tag) found in {floorName}");
-                if (xrOrigin == null)
-                    Debug.LogWarning("⚠️ XR Origin reference lost");
-            }
-        }
-        else
-        {
-            Debug.LogWarning($"⚠️ Could not find {floorName} GameObject");
         }
     }
 }
